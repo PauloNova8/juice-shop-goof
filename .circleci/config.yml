@@ -9,15 +9,15 @@ jobs:
       - run:
           name: Instalar o Node.js e npm
           command: |
-            # Instalando Node.js (se não estiver instalado)
-            curl -sL https://deb.nodesource.com/setup_16.x | bash -  # Instala a versão 16 do Node.js
-            apt-get install -y nodejs  # Instala o Node.js
-            npm install -g npm@latest  # Atualiza o npm para a versão mais recente
+            # Instalando Node.js (se não estiver instalado) com permissões de superusuário
+            curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -  # Instala a versão 16 do Node.js
+            sudo apt-get install -y nodejs  # Instala o Node.js com sudo
+            sudo npm install -g npm@latest  # Atualiza o npm para a versão mais recente com sudo
       - run:
           name: Instalar o Snyk CLI
           command: |
-            # Agora que o npm está atualizado, instala o Snyk CLI
-            npm install -g snyk
+            # Agora que o npm está atualizado, instala o Snyk CLI com permissões elevadas
+            sudo npm install -g snyk
       - run:
           name: Rodar o teste de vulnerabilidades do Snyk
           command: snyk test  # Executa o comando de verificação de vulnerabilidades
