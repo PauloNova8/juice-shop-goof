@@ -1,8 +1,8 @@
 version: 2.1
 
-# Usando o orb certificado 'snyk-cli'
+# Usando o orb certificado 'snyk-cli' com a versão mais recente disponível
 orbs:
-  snyk: snyk/snyk-cli@2.0.0  # Certifique-se de usar a versão mais recente ou disponível
+  snyk: snyk/snyk-cli@2.0.2  # Verifique no CircleCI se essa versão é válida
 
 jobs:
   snyk:
