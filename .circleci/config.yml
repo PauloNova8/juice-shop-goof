@@ -7,11 +7,13 @@ jobs:
     steps:
       - checkout  # Faz o checkout do código
       - run:
-          name: Instalar o cliente Snyk
-          command: npm install -g snyk  # Instala o cliente Snyk globalmente
+          name: Instalar o Snyk CLI
+          command: |
+            # Atualiza o npm e instala o Snyk CLI globalmente
+            npm install -g snyk
       - run:
           name: Rodar o teste de vulnerabilidades do Snyk
-          command: snyk test  # Executa a verificação de vulnerabilidades do Snyk
+          command: snyk test  # Executa o comando de verificação de vulnerabilidades
 
 workflows:
   version: 2
@@ -21,5 +23,5 @@ workflows:
           filters:
             branches:
               only:
-                - main  # Filtra para rodar apenas nas branches main
-                - master
+                - main  # Rodar apenas para a branch main
+                - master  # Também na branch master
