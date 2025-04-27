@@ -1,9 +1,5 @@
 version: 2.1
 
-# Usando o orb certificado 'snyk-cli' com a versão mais recente disponível
-orbs:
-  snyk: snyk/snyk-cli@2.0.2  # Verifique no CircleCI se essa versão é válida
-
 jobs:
   snyk:
     docker:
@@ -11,11 +7,11 @@ jobs:
     steps:
       - checkout  # Faz o checkout do código
       - run:
-          name: Instalar o Snyk
+          name: Instalar o cliente Snyk
           command: npm install -g snyk  # Instala o cliente Snyk globalmente
       - run:
-          name: Rodar o teste de vulnerabilidade do Snyk
-          command: snyk test  # Rodar a verificação de vulnerabilidades do Snyk
+          name: Rodar o teste de vulnerabilidades do Snyk
+          command: snyk test  # Executa a verificação de vulnerabilidades do Snyk
 
 workflows:
   version: 2
