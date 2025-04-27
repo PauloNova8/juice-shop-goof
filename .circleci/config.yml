@@ -7,9 +7,16 @@ jobs:
     steps:
       - checkout  # Faz o checkout do código
       - run:
+          name: Instalar o Node.js e npm
+          command: |
+            # Instalando Node.js (se não estiver instalado)
+            curl -sL https://deb.nodesource.com/setup_16.x | bash -  # Instala a versão 16 do Node.js
+            apt-get install -y nodejs  # Instala o Node.js
+            npm install -g npm@latest  # Atualiza o npm para a versão mais recente
+      - run:
           name: Instalar o Snyk CLI
           command: |
-            # Atualiza o npm e instala o Snyk CLI globalmente
+            # Agora que o npm está atualizado, instala o Snyk CLI
             npm install -g snyk
       - run:
           name: Rodar o teste de vulnerabilidades do Snyk
