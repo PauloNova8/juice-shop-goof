@@ -1,0 +1,27 @@
+version: 2.1
+
+# Usando o orb do Snyk para facilitar a configuração
+orbs:
+  snyk: snyk/snyk@1.0.0
+
+jobs:
+  snyk:
+    docker:
+      - image: circleci/python:3.8  # Imagem do Docker, altere conforme sua stack
+    steps:
+      - checkout  # Faz o checkout do código
+      - snyk/snyk-open-source:
+          organization: "sua-organizacao"  # Substitua com o nome da sua organização no Snyk
+      - snyk/snyk-code:
+          organization: "sua-organizacao"  # Substitua com o nome da sua organização no Snyk
+
+workflows:
+  version: 2
+  snyk-check:
+    jobs:
+      - snyk:
+          filters:
+            branches:
+              only:
+                - main  # Só vai rodar nas branches main
+                - master  # Também vai rodar na master
