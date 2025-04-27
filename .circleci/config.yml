@@ -22,6 +22,9 @@ jobs:
             # Agora que o npm está atualizado, instala o Snyk CLI com permissões elevadas
             sudo npm install -g snyk
       - run:
+          name: Autenticar no Snyk
+          command: snyk auth $SNYK_TOKEN  # Usa o token armazenado como variável de ambiente
+      - run:
           name: Rodar o teste de vulnerabilidades do Snyk
           command: snyk test  # Executa o comando de verificação de vulnerabilidades
 
