@@ -9,10 +9,10 @@ jobs:
       - run:
           name: Instalar o Node.js e npm
           command: |
-            # Instalando Node.js (se não estiver instalado) com permissões de superusuário
-            curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -  # Instala a versão 16 do Node.js
+            # Instalando Node.js versão 20.x
+            curl -sL https://deb.nodesource.com/setup_20.x | sudo bash -  # Instala a versão 20 do Node.js
             sudo apt-get install -y nodejs  # Instala o Node.js com sudo
-            sudo npm install -g npm@latest  # Atualiza o npm para a versão mais recente com sudo
+            sudo npm install -g npm@latest  # Atualiza o npm para a versão mais recente
       - run:
           name: Instalar o Snyk CLI
           command: |
