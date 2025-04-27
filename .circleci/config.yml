@@ -14,6 +14,9 @@ jobs:
             sudo apt-get install -y nodejs  # Instala o Node.js com sudo
             sudo npm install -g npm@latest  # Atualiza o npm para a versão mais recente
       - run:
+          name: Instalar dependências com npm
+          command: npm install  # Instala as dependências do projeto, criando o node_modules
+      - run:
           name: Instalar o Snyk CLI
           command: |
             # Agora que o npm está atualizado, instala o Snyk CLI com permissões elevadas
