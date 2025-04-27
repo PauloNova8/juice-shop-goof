@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   snyk:
     docker:
-      - image: circleci/python:3.8  # Use a imagem Docker apropriada para sua stack
+      - image: cimg/python:3.8  # Usando a imagem mais recente do CircleCI para Python
     steps:
       - checkout  # Faz o checkout do código
       - run:
