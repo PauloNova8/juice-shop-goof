@@ -22,6 +22,9 @@ jobs:
             # Agora que o npm está atualizado, instala o Snyk CLI com permissões elevadas
             sudo npm install -g snyk
       - run:
+          name: Configure Snyk endpoint
+          command: snyk config set endpoint=https://api.us.snyk.io
+      - run:
           name: Autenticar no Snyk
           command: snyk auth $SNYK_TOKEN  # Usa o token armazenado como variável de ambiente
       - run:
