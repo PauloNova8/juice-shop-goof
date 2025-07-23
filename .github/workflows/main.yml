@@ -6,23 +6,31 @@ on:
       - main
       - master
   pull_request:
+    branches:
+      - main
+      - master
 
 jobs:
   snyk:
+    name: Rodar Snyk Scans
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js 20.x
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Instalar dependências do projeto
+      - name: Instalar dependências do projeto (se houver)
         run: |
-          if [ -f package.json ]; then npm install; fi
+          if [ -f package.json ]; then
+            npm install
+          else
+            echo "Nenhum package.json encontrado. Pulando npm install."
+          fi
 
       - name: Instalar Snyk CLI
         run: npm install -g snyk
@@ -30,22 +38,22 @@ jobs:
       - name: Configurar endpoint do Snyk (opcional)
         run: snyk config set endpoint=https://api.us.snyk.io
 
-      - name: Autenticar no Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      - name: Definir variável de ambiente SNYK_TOKEN
+        run: echo "SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Snyk Open Source Scan
+      - name: 🔍 Snyk Open Source Scan
         run: snyk test --all-projects || true
 
-      - name: Snyk Code Scan (SAST)
+      - name: 🔐 Snyk Code Scan (SAST)
         run: snyk code test || true
 
-      - name: Snyk IaC Scan
+      - name: ☁️ Snyk IaC Scan
         run: snyk iac test || true
 
-      - name: Snyk Container Scan (Dockerfile)
+      - name: 🐳 Snyk Container Scan
         run: |
           if [ -f Dockerfile ]; then
             snyk container test . --file=Dockerfile || true
           else
-            echo "Nenhum Dockerfile encontrado, pulando scan de container."
+            echo "Nenhum Dockerfile encontrado. Pulando o scan de container."
           fi
